@@ -1,5 +1,6 @@
 ﻿(function (global) {
 
+    //comments for commit
     var skip = /$^/,  //for skip match
     _cache;
 
