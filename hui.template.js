@@ -1,6 +1,6 @@
 ﻿(function (global) {
 
-    //comments for commit
+    //comments for commit2
     var skip = /$^/,  //for skip match
     _cache;
 
