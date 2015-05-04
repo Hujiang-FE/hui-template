@@ -1,0 +1,11 @@
+*.obj
+*.dll
+*.pdb
+*.suo
+*.user
+[Bb]in/
+[Dd]ebug*/
+[Rr]elease*/
+node_modules*/
+packages*/
+**/.idea/*

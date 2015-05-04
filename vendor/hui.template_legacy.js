@@ -1,6 +1,5 @@
 ﻿(function (global) {
 
-    //comments for commit3 from mac
     var skip = /$^/,  //for skip match
     _cache;
 
@@ -14,24 +13,24 @@
         ].apply(tmplEngine, arguments);
     };
 
-    tmplEngine.ver = "0.0.1";
+    tmplEngine.ver = "1.0.0";
 
     tmplEngine.cache = _cache = {};
 
     tmplEngine.tags = {
-        beginTag:       '<!--',
-        endTag:         '-->',
-        varBeginTag:       '#{',
-        varEndTag:         '}'
+        beginTag    : '<!--',
+        endTag      : '-->',
+        varBeginTag : '#{',
+        varEndTag   : '}'
     };
 
     tmplEngine.syntaxRules = {
-        evaluate:       '$bt([\\s\\S]+?(\\}?)+)$et',
-        interpolate:    '$bt(\s*[^!][\\s\\S]*?)$et',
-        unescape:       '$bt!([\\s\\S]+?)$et',
-        conditional:    '$bt\\s*\\/?(?:if|(elif|else))\\:?\\s*([\\s\\S]*?)\\s*$et',
-        iterate:        '$bt\\s*\\/?for\\:?(?:\\s*([\\w$]+)\\s*(?:\\,\\s*([\\w$]+))?\\s*in)?(\\s*[\\s\\S]*?)\\s*$et',
-        include:        '$bt\\s*include:\\s*([^}]*?)\\s*,\\s*([^}]*?)$et'
+        evaluate       : '$bt\\s*eval\\:([\\s\\S]+?(\\}?)+)$et',
+        interpolate    : '$bt(\s*[^!][\\s\\S]*?)$et',
+        unescape       : '$bt!([\\s\\S]+?)$et',
+        conditional    : '$bt\\s*\\/?(?:if|(elif|elseif|else))\\:?\\s*([\\s\\S]*?)\\s*$et',
+        iterate        : '$bt\\s*\\/?for\\:?(?:\\s*([\\w$]+)\\s*(?:\\,\\s*([\\w$]+))?\\s*in)?(\\s*[\\s\\S]*?)\\s*$et',
+        include        : '$bt\\s*include:\\s*([^}]*?)\\s*,\\s*([^}]*?)$et'
     };
 
     //utils
@@ -57,10 +56,13 @@
         if(typeof content !== 'string') {
             return content;
         }
-        return content
-        .replace(/&(?![\w#]+;)|[<>"'\/]/g, function (s) {
+        return content.replace(/&(?![\w#]+;)|[<>"'\/]/g, function (s) {
             return escapeRules[s];
         });
+    };
+
+    var escapeRegex = function (raw) {
+        return raw.replace(/([\/()[\]?{}|*+-.$^])/g, '\\$1');
     };
 
     var isArray = function (obj) {
@@ -74,14 +76,10 @@
     };
     //endutil
 
-    var regEscape = function (raw) {
-        return raw.replace(/([\/()[\]?{}|*+-.$^])/g, '\\$1');
-    };
-
     var genRegExps = function (bt, et, rule) {
         
-        rule = rule.replace(/\$bt/g, regEscape(bt))
-            .replace(/\$et/g, regEscape(et))
+        rule = rule.replace(/\$bt/g, escapeRegex(bt))
+            .replace(/\$et/g, escapeRegex(et))
 
         return new RegExp(rule,"ig");
     };
@@ -157,7 +155,7 @@
             return "'; _out+=initTmpl('" + tmplId + "',"+ data +"); _out+='";
         })
         .replace(r.evaluate || skip, function (match, code) { 
-            return "';" + parseCode(code) + "_out+='";
+            return "';" + parseCode(code) + "; _out+='";
         })
 
         //escape \n,\t,\r to ensure compile success.
@@ -249,11 +247,9 @@
         };
     }
 
-    // define for hui
-    if (typeof define === 'function') {
-        define(function () {
-            return tmplEngine;
-        });
+    // define for HUI
+    if (global.HUI) {
+        global.HUI.template = tmplEngine;
     // attach to nodejs
     } else if (typeof exports !== 'undefined') {
         module.exports = tmplEngine;

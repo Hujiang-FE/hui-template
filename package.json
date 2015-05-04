@@ -1,0 +1,23 @@
+{
+  "name": "hui-template",
+  "version": "0.1.0",
+  "description": "",
+  "author": "Daniel.He",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "*",
+    "gulp-util": "*",
+    "gulp-concat": "*",
+    "gulp-uglify": "*",
+    "gulp-jshint": "*",
+    "gulp-rename": "*",
+    "gulp-livereload": "*",
+    "gulp-watch": "*",
+    "gulp-open": "*",
+    "gulp-connect": "*",
+    "gulp-changed": "*",
+    "gulp-mocha": "*",
+    "stream-combiner": "*",
+    "gulp-replace-task": "^0.1.0"
+  }
+}

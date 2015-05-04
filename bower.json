@@ -1,0 +1,20 @@
+{
+  "name": "hui-template",
+  "version": "0.1.0",
+  "authors": [
+    "Daniel.He"
+  ],
+  "description": "hui-template",
+  "keywords": [
+    "template"
+  ],
+  "license": "MIT",
+  "private": false,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

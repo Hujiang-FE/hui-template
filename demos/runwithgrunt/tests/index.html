@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>HUI.Widgets Samples</title>
+	<link rel="stylesheet" href="../samples/explore/css/sample.css">
+    <link href="../samples/explore/css/shCoreDefault.css" rel="stylesheet" type="text/css" />
+    <link href="../samples/explore/css/shThemeDefault.css" rel="stylesheet" type="text/css" />
+	<script src="../external/jquery-1.8.3.min.js"></script>
+	<script src="../samples/explore/js/shCore.js"></script>
+	<script src="../samples/explore/js/shBrushCss.js"></script>
+	<script src="../samples/explore/js/shBrushJScript.js"></script>
+	<script src="../samples/explore/js/shBrushXml.js"></script>
+	<script src="../samples/explore/js/sample.js"></script>
+
+	<script type="text/javascript">
+	$(function(){
+		function first2Upper(raw){
+			return raw.substring(0,1).toUpperCase() + raw.substring(1);
+		}
+
+		var ulreg = /<ul([\s\S]*?)<\/ul>/ig, 
+			widgetName = "draggable";
+			timeStamp = (new Date).getTime();
+
+		$("#menu").delegate("li.widget", "click", function(event){
+			var $li = $(event.target).parent(),url, submenu;
+
+			widgetName = $li.attr("data-widget"),
+			url = widgetName + '/'+widgetName+'.html?' + timeStamp;
+
+
+			$("#demoframe").attr("src", url + '?' + timeStamp);
+			$('.title').html(first2Upper(widgetName));
+
+			$('li.widget a').removeClass('current');
+			$(this).find('a').addClass('current');
+		});
+
+		$("#toggleCode").toggle(function(){
+			$("#codeWrapper").slideDown();
+		}, function(){
+			$("#codeWrapper").slideUp();
+		});
+
+		$('#firstWidget').trigger('click');
+	})
+	</script>
+
+
+	<style>
+	.content {
+		min-height:520px;
+	}
+	</style>
+	
+</head>
+<body>
+	<div class="header">
+		<div class="container">
+			<div class="ue_logo">Unit Test of Widgets</div>
+			<div class="link"><a href="../samples/index.html" target="_blank">HUI·WIDGET</a></div>
+		</div>
+	</div>
+
+	<div class="container main">
+		<div class="aside" id="menu">
+			<ul class="nav">
+				<li class="widget" data-widget="accordion">
+					<a href="#" id="firstWidget" class="no_topborder">Accordion(折叠导航)</a>
+				</li>
+				<li class="widget" data-widget="checkbox">
+					<a href="#">Checkbox(单选、复选)</a>
+				</li>
+				<!-- <li class="widget" data-widget="dropdown">
+					<a href="#">Dropdown(下拉框)</a>
+				</li> -->
+				<li class="widget" data-widget="dialog">
+					<a href="#">Dialog(对话框)</a>
+				</li>
+				<li class="widget" data-widget="Carousel">
+					<a href="#">Carousel(轮播图)</a>
+				</li>
+				<li class="widget" data-widget="donutprogress">
+					<a href="#">Donut(环形进度条)</a>
+				</li>
+				<li class="widget" data-widget="progressbar">
+					<a href="#">Progressbar(进度条)</a>
+				</li>
+				<li class="widget" data-widget="slider">
+					<a href="#">Slider(滑块)</a>
+				</li>
+				<li class="widget" data-widget="draggable">
+					<a href="#">Draggable(拖拽)</a>
+				</li>
+				<li class="widget" data-widget="resizable">
+					<a href="#" >Resizable(缩放)</a>
+				</li>
+				<li class="widget" data-widget="position">
+					<a href="#" >Position(定位器)</a>
+				</li>
+
+
+				<li class="widget" data-widget="stickup">
+					<a href="#" >Stickup</a>
+				</li>
+
+				<li class="widget" data-widget="autocomplete">
+					<a href="#" >Autocomplete</a>
+				</li>
+
+				<li class="widget" data-widget="rating">
+					<a href="#" >Rating</a>
+				</li>
+
+				<li class="widget" data-widget="util">
+					<a href="#" class="no_bottomborder">Utility methods</a>
+				</li>
+			</ul>		
+		</div>
+		<div class="content">
+			<div class="title">Draggable</div>
+			<div class="text" style="height:520px">
+				<iframe id="demoframe" src="" frameborder="0" width="100%" height="520px"></iframe>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

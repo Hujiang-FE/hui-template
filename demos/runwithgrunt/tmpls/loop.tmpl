@@ -1,0 +1,26 @@
+<span>#{!it.name}</span>
+<span>#{it.name}</span>
+<br />
+<br />
+
+{{if:it.isMale=='Male'}}aspx{{/if}}
+<ul class="">
+{{for:it.goods}}
+    <li>#{$val}@ idx#{$idx}
+    <ul>
+    {{for:it.week}}
+    <li>#{$val}@ idx#{$idx}
+    </li>
+    {{/for}}
+    </ul>
+    </li>
+{{/for}}
+</ul>
+{{if:it.isMale}}
+<br />
+<span>I'm a guy!</span>
+{{if:it.isOld}}
+<br />
+<span>I'm old!</span>
+{{/if}}
+{{/if}}
