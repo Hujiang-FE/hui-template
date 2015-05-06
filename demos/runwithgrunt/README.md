@@ -1,1 +1,0 @@
-## You can use the minified js to build you website.
