@@ -1,20 +1,3 @@
-if(tmplEngine) {
-    tmplEngine.tags = {
-            beginTag:       '{{',
-            endTag:         '}}',
-            varBeginTag:       '{{',
-            varEndTag:         '}}'
-    };
-
-    tmplEngine.syntaxRules = {
-        evaluate:       '$bt([\\s\\S]+?(\\}?)+)$et',
-        interpolate:    '$bt=([\\s\\S]+?)$et',
-        unescape:       '$bt!([\\s\\S]+?)$et',
-        conditional:    '$bt\\?(\\?)?\\s*([\\s\\S]*?)\\s*$et',
-        iterate:        '$bt~\\s*(?:$et|([\\s\\S]+?)\\s*(?:\\:\\s*([\\w$]+))?\\s*(?:\\:\\s*([\\w$]+))?\\s*$et)',
-        include:        '$bt@\\s*([^}]*?)\\s*,\\s*([^}]*?)$et'
-    };
-}
 (function(global) {
 
     var skip = /$^/, //for skip match
@@ -30,9 +13,14 @@ if(tmplEngine) {
         ].apply(tmplEngine, arguments);
     };
 
-    tmplEngine.version = "1.0.1";
-    tmplEngine.cache = _cache = {};
 
+    global.HUI = global.HUI || {};
+    global.HUI.template = tmplEngine;
+
+    tmplEngine.version = "0.1.0";
+    tmplEngine._cache = _cache = {};
+    
+    /*@@REPLACE_TAG_BEGIN*/
     tmplEngine.tags = {
         beginTag: '{{',
         endTag: '}}',
@@ -40,17 +28,6 @@ if(tmplEngine) {
         varEndTag: '}'
     };
 
-    // native
-    // tmplEngine.syntaxRules = {
-    //     evaluate: '$bt\\s*eval\\:([\\s\\S]+?(\\}?)+)$et',
-    //     interpolate: '$bt(\s*[^!][\\s\\S]*?)$et',
-    //     unescape: '$bt!([\\s\\S]+?)$et',
-    //     conditional: '$bt\\s*\\/?(?:if|(elif|elseif|else))\\:?\\s*([\\s\\S]*?)\\s*$et',
-    //     iterate: '$bt\\s*\\/?for\\:?(?:\\s*([\\w$]+)\\s*(?:\\,\\s*([\\w$]+))?\\s*in)?(\\s*[\\s\\S]*?)\\s*$et',
-    //     include: '$bt\\s*include:\\s*([^}]*?)\\s*,\\s*([^}]*?)$et'
-    // };
-
-    // doT liked
     tmplEngine.syntaxRules = {
         evaluate: '$bt\\s*eval\\:([\\s\\S]+?(\\}?)+)$et',
         interpolate: '$bt(\s*[^!][\\s\\S]*?)$et',
@@ -59,6 +36,7 @@ if(tmplEngine) {
         iterate: '$bt\\s*\\/?for\\:?(?:\\s*([\\w$]+)\\s*(?:\\,\\s*([\\w$]+))?\\s*in)?(\\s*[\\s\\S]*?)\\s*$et',
         include: '$bt\\s*include:\\s*([^}]*?)\\s*,\\s*([^}]*?)$et'
     };
+    /*@@REPLACE_TAG_END*/
 
     var extend = function(target, source) {
         for (var key in source) {
@@ -82,6 +60,7 @@ if(tmplEngine) {
         if (typeof content !== 'string') {
             return content;
         }
+
         return content.replace(/&(?![\w#]+;)|[<>"'\/]/g, function(s) {
             return escapeRules[s];
         });
@@ -250,11 +229,8 @@ if(tmplEngine) {
             return engine.render(data);
         };
     }
-
-    global.HUI = global.HUI || {};
-    global.HUI.template = tmplEngine;
+    
     // attach to nodejs
-
     if (typeof exports !== 'undefined') {
         module.exports = tmplEngine;
     }

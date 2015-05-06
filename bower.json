@@ -1,13 +1,20 @@
 {
-  "name": "hui-template",
-  "version": "0.1.0",
+  "name": "hui-widget",
+  "version": "1.0.1",
   "authors": [
-    "Daniel.He"
+    "hj_front"
   ],
-  "description": "hui-template",
+  "description": "hui-widget",
+  "main": [
+    "dist/hui.widgets.js",
+    "dist/hui.widgets.css"
+  ],
   "keywords": [
-    "template"
+    "jquery"
   ],
+  "dependencies": {
+    "jquery": "1.8.3"
+  },
   "license": "MIT",
   "private": false,
   "ignore": [

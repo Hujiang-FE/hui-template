@@ -26,16 +26,16 @@
 <body>
 <div id="content"></div>
 <script id="tmpl1" type="text/template">
-    <!-- if:it.type=='string' -->
+    {{ if:it.type=='string'}}
     string
-    <!--/if-->
-    <!--if:it.type=='number' -->
+    {{/if}}
+    {{if:it.type=='number' }}
     number
-    <!--elif:it.type=='object'-->
+    {{elif:it.type=='object'}}
     object
-    <!--else-->
+    {{else}}
     nothing
-    <!--/if-->
+    {{/if}}
 
 </script>
 </body>
