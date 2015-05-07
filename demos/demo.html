@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="../vendor/jquery-1.8.2.min.js" type="text/javascript"></script>
+    <script src="../src/hui.template.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            var obj = { 
+                "name": "个人信息，姓名、电话、QQ、学校", 
+                "age": 31, 
+                "isMale": true, 
+                "isOld": true, 
+                "peo": [{
+                    name: "Ming",
+                    phone: "15920100372",
+                    qq: "540548843",
+                    school: "小学"
+                },{
+                    name: "Lrelia",
+                    phone: "15923103213",
+                    qq: "581823813",
+                    school: "初中"
+                },{
+                    name: "Ttlast",
+                    phone: "13802052141",
+                    qq: "498392183",
+                    school: "高中"
+                },{
+                    name: "dqaq",
+                    phone: "18575275212",
+                    qq: "545467854",
+                    school:　"大学"
+                }]
+            }
+
+            var engine = HUI.template('#tmpl1');
+            var str = engine.render(obj);
+
+            $("#content").html(str);
+        });
+    </script>
+    <style>
+        .default-theme {
+            margin-top: 60px;
+            border: 1px solid #efefef;
+        }
+        .default-theme td {
+            padding: 5px 10px;
+            border: 1px solid #efefef;
+            border-collapse:collapse;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div id="content"></div>
+<script id="tmpl1" type="text/template">
+    <span>#{it.name}</span>
+    <br />
+    {{include:#tmpl2, it.goods}}
+	<br />
+
+    {{if:it.isMale=='Male'}}aspx{{/if}}
+    <table class="default-theme">
+        <tr>
+            <td>姓名</td>
+            <td>电话</td>
+            <td>QQ</td>
+            <td>学校</td>
+        </tr>
+    {{for:it.peo}}
+        <tr>
+            <td>
+                #{$val.name}
+            </td>
+            <td>
+                #{$val.phone}
+            </td>
+            <td>
+                #{$val.qq}
+            </td>
+            <td>
+                #{$val.school}
+            </td>
+        </tr>
+    {{/for}}
+    </table>
+    {{if:it.isMale}}
+    <br />
+    <span>I'm a guy!</span>
+    {{if:it.isOld}}
+    <br />
+    <span>I'm old!</span>
+    {{/if}}
+    {{/if}}
+</script>
+
+<script id="tmpl2" type="text/template">
+{{for:it}}
+    <span>#{$val}@ idx#{$idx}
+    </span>
+{{/for}}
+</script>
+</body>
+</html>
