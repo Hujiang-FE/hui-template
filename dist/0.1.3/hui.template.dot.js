@@ -1,10 +1,18 @@
 /*
- * HUI.template
+ * HUI.template 0.1.3
+ * 
+ * Copyright 2015 hujiang.com
+ * Released under the MIT license.
+ * 
+ * Anthor: Daniel He
+ * https://github.com/danielhe
  */
 
 (function(factory) {
     if (typeof define === "function" && define.amd) {
-        define([], factory);
+        define([this], function(){
+            factory(this);
+        });
     } else { // Browser globals
         factory(this);
     }
@@ -29,20 +37,20 @@
     tmplEngine.version = "0.1.3";
     tmplEngine._cache = _cache = {};
 
-    tmplEngine.tags = {
-        beginTag: '{{',
-        endTag: '}}',
-        varBeginTag: '{{',
-        varEndTag: '}}'
+        tmplEngine.tags = {
+        beginTag:       '{{',
+        endTag:         '}}',
+        varBeginTag:    '{{',
+        varEndTag:      '}}'
     };
 
     tmplEngine.syntaxRules = {
-        evaluate: '$bt([\\s\\S]+?(\\}?)+)$et',
-        interpolate: '$bt=([\\s\\S]+?)$et',
-        unescape: '$bt!([\\s\\S]+?)$et',
-        conditional: '$bt\\?(\\?)?\\s*([\\s\\S]*?)\\s*$et',
-        iterate: '$bt~(?:\\s*([\\w$]+)\\s*(?:\\,\\s*([\\w$]+))?\\s*in)?(\\s*[\\s\\S]*?)\\s*$et',
-        include: '$bt@\\s*([^}]*?)\\s*,\\s*([^}]*?)$et'
+        evaluate:       '$bt([\\s\\S]+?(\\}?)+)$et',
+        interpolate:    '$bt=([\\s\\S]+?)$et',
+        unescape:       '$bt!([\\s\\S]+?)$et',
+        conditional:    '$bt\\?(\\?)?\\s*([\\s\\S]*?)\\s*$et',
+        iterate:        '$bt~(?:\\s*([\\w$]+)\\s*(?:\\,\\s*([\\w$]+))?\\s*in)?(\\s*[\\s\\S]*?)\\s*$et',
+        include:        '$bt@\\s*([^}]*?)\\s*,\\s*([^}]*?)$et'
     };
 
 
@@ -246,4 +254,5 @@
         module.exports = tmplEngine;
     }
 
+    return tmplEngine;
 }));

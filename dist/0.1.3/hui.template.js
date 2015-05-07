@@ -1,10 +1,18 @@
 /*
- * HUI.template
+ * HUI.template 0.1.3
+ * 
+ * Copyright 2015 hujiang.com
+ * Released under the MIT license.
+ * 
+ * Anthor: Daniel He
+ * https://github.com/danielhe
  */
 
 (function(factory) {
     if (typeof define === "function" && define.amd) {
-        define([], factory);
+        define([this], function(){
+            factory(this);
+        });
     } else { // Browser globals
         factory(this);
     }
@@ -247,4 +255,5 @@
         module.exports = tmplEngine;
     }
 
+    return tmplEngine;
 }));

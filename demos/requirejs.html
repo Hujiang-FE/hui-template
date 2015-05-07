@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script data-main='main.js' src="../vendor/require-2.1.15.min.js" ></script>
+</head>
+<body>
+<div id="content"></div>
+<script id="tmpl1" type="text/template">
+    <span>#{!it.name}</span>
+    <span>#{it.name}</span>
+    <h3>include child template 1</h3>
+    <br />
+    {{include:#tmpl2, it.goods}}
+    <br />   
+</script>
+
+
+<script id="tmpl2" type="text/template">
+{{for:it}}
+    <span>#{$val}@ idx#{$idx}</span>
+{{/for}}
+</script>
+</body>
+</html>
