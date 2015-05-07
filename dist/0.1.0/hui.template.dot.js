@@ -1,5 +1,14 @@
-(function(global) {
+/*
+ * HUI.template
+ */
 
+(function(factory) {
+    if (typeof define === "function" && define.amd) {
+        define([], factory);
+    } else { // Browser globals
+        factory(this);
+    }
+}(function(global) {
     var skip = /$^/, //for skip match
         _cache;
 
@@ -19,8 +28,8 @@
 
     tmplEngine.version = "0.1.0";
     tmplEngine._cache = _cache = {};
-    
-    tmplEngine.tags = {
+
+        tmplEngine.tags = {
         beginTag:       '{{',
         endTag:         '}}',
         varBeginTag:    '{{',
@@ -32,7 +41,6 @@
         interpolate:    '$bt=([\\s\\S]+?)$et',
         unescape:       '$bt!([\\s\\S]+?)$et',
         conditional:    '$bt\\?(\\?)?\\s*([\\s\\S]*?)\\s*$et',
-        //iterate:        '$bt~\\s*(?:$et|([\\s\\S]+?)\\s*\\:\\s*([\\w$]+)\\s*(?:\\:\\s*([\w$]+))?\\s*$et)',
         iterate:        '$bt~(?:\\s*([\\w$]+)\\s*(?:\\,\\s*([\\w$]+))?\\s*in)?(\\s*[\\s\\S]*?)\\s*$et',
         include:        '$bt@\\s*([^}]*?)\\s*,\\s*([^}]*?)$et'
     };
@@ -178,7 +186,7 @@
     tmplEngine.Engine = function(tmpl) {
         this._escapeHTML = escapeHTML;
         this._template = tmplEngine;
-        this.render = genTmplFn(tmpl);
+        this.render = typeof tmpl === 'function' ? tmpl : genTmplFn(tmpl);
     };
 
     tmplEngine.get = function(id) {
@@ -188,24 +196,27 @@
         return null;
     };
 
-    tmplEngine.compile = function(tmpl) {
+    tmplEngine.compile = function(tmpl, fn) {
         //todo cache the tmpl fn
-        var args = [].slice.call(arguments),
-            cache, id,
-            match = args[0].match(/^\s*#([\w:\-\.]+)\s*$/i);
+        var cache, id, match;
+        if (!fn) {
+            match = tmpl.match(/^\s*#([\w:\-\.]+)\s*$/i);
+            if (match) {
+                id = match[1];
+                if ('document' in global) {
+                    var elem = document.getElementById(id);
 
-        if (match) {
-            id = match[1];
-            if ('document' in global) {
-                var elem = document.getElementById(id);
-
-                if (elem) {
-                    var source = elem.value || elem.innerHTML;
-                    tmpl = source.replace(/^\s*|\s*$/g, '');
-                } else {
-                    throw "Can't get template!";
+                    if (elem) {
+                        var source = elem.value || elem.innerHTML;
+                        tmpl = source.replace(/^\s*|\s*$/g, '');
+                    } else {
+                        throw "Can't get template!";
+                    }
                 }
             }
+        } else {
+            id = tmpl;
+            tmpl = fn;
         }
 
         var renderer = new tmplEngine.Engine(tmpl);
@@ -229,10 +240,10 @@
             return engine.render(data);
         };
     }
-    
+
     // attach to nodejs
     if (typeof exports !== 'undefined') {
         module.exports = tmplEngine;
     }
 
-})(this);
+}));

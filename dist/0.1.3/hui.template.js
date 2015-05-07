@@ -1,4 +1,4 @@
-﻿/*
+/*
  * HUI.template
  */
 
@@ -26,7 +26,7 @@
     global.HUI = global.HUI || {};
     global.HUI.template = tmplEngine;
 
-    tmplEngine.version = "@@VERSION";
+    tmplEngine.version = "0.1.3";
     tmplEngine._cache = _cache = {};
 
     /*@@REPLACE_TAG_BEGIN*/

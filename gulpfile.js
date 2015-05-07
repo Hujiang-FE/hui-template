@@ -49,7 +49,7 @@ gulp.task('dot', function() {
             patterns: [{
                 match: /\/\*\@\@REPLACE_TAG_BEGIN\*\/[\s\S]*?\/\*\@\@REPLACE_TAG_END\*\//g,
                 replacement: function(){
-                    var data = fs.readFileSync('./src/dot.ext.js');
+                    var data = fs.readFileSync('./src/dot.syntaxrule.js');
                     return data.toString().replace(/HUI\.template/g, 'tmplEngine');
                 }
             }]

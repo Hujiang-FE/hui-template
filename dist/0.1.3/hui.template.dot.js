@@ -1,4 +1,4 @@
-﻿/*
+/*
  * HUI.template
  */
 
@@ -26,26 +26,25 @@
     global.HUI = global.HUI || {};
     global.HUI.template = tmplEngine;
 
-    tmplEngine.version = "@@VERSION";
+    tmplEngine.version = "0.1.3";
     tmplEngine._cache = _cache = {};
 
-    /*@@REPLACE_TAG_BEGIN*/
     tmplEngine.tags = {
         beginTag: '{{',
         endTag: '}}',
-        varBeginTag: '#{',
-        varEndTag: '}'
+        varBeginTag: '{{',
+        varEndTag: '}}'
     };
 
     tmplEngine.syntaxRules = {
-        evaluate: '$bt\\s*eval\\:([\\s\\S]+?(\\}?)+)$et',
-        interpolate: '$bt(\s*[^!][\\s\\S]*?)$et',
+        evaluate: '$bt([\\s\\S]+?(\\}?)+)$et',
+        interpolate: '$bt=([\\s\\S]+?)$et',
         unescape: '$bt!([\\s\\S]+?)$et',
-        conditional: '$bt\\s*\\/?(?:if|(elif|elseif|else))\\:?\\s*([\\s\\S]*?)\\s*$et',
-        iterate: '$bt\\s*\\/?for\\:?(?:\\s*([\\w$]+)\\s*(?:\\,\\s*([\\w$]+))?\\s*in)?(\\s*[\\s\\S]*?)\\s*$et',
-        include: '$bt\\s*include:\\s*([^}]*?)\\s*,\\s*([^}]*?)$et'
+        conditional: '$bt\\?(\\?)?\\s*([\\s\\S]*?)\\s*$et',
+        iterate: '$bt~(?:\\s*([\\w$]+)\\s*(?:\\,\\s*([\\w$]+))?\\s*in)?(\\s*[\\s\\S]*?)\\s*$et',
+        include: '$bt@\\s*([^}]*?)\\s*,\\s*([^}]*?)$et'
     };
-    /*@@REPLACE_TAG_END*/
+
 
     var extend = function(target, source) {
         for (var key in source) {
