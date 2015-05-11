@@ -127,7 +127,7 @@
             valVar,
             arrName,
             idxVar,
-            funStr = '"use strict";' +
+            funStr = '"use strict"; ' +
             'var espHTML = this._escapeHTML,' +
             'initTmpl = this._template,' +
             "_out='';_out+='";
@@ -162,7 +162,10 @@
                 return "';var " + arrName + '=' + iterate + ';if(' + arrName + ') {var ' + valVar + ',' + idxVar + ';for(var ' + loopI + '=0; ' + loopI + '<' + arrName + '.length; ' + loopI + '++){' + idxVar + '=' + loopI + ',' + valVar + '=' + arrName + '[' + loopI + "];_out+='";
             })
             .replace(r.include || skip, function(match, tmplId, data) {
-                return "'; _out+=initTmpl('" + tmplId + "'," + data + "); _out+='";
+                return "'; _out+=(initTmpl.get('" + tmplId + 
+                    "') || initTmpl.compile('" + tmplId +
+                    "')).render(" + data + 
+                    "); _out+='";
             })
             .replace(r.evaluate || skip, function(match, code) {
                 return "';" + parseCode(code) + "; _out+='";

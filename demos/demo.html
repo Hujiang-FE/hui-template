@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title></title>
+    <meta charset="UTF-8">
     <script src="../vendor/jquery-1.8.2.min.js" type="text/javascript"></script>
     <script src="../src/hui.template.js" type="text/javascript"></script>
     <script type="text/javascript">
@@ -12,6 +13,7 @@
                 "age": 31, 
                 "isMale": true, 
                 "isOld": true, 
+                "weeks": ["Monday","Tuesday","Wednesday","Thursday"],
                 "peo": [{
                     name: "Ming",
                     phone: "15920100372",
@@ -31,7 +33,7 @@
                     name: "dqaq",
                     phone: "18575275212",
                     qq: "545467854",
-                    school:　"大学"
+                    school: "大学"
                 }]
             }
 
@@ -59,7 +61,7 @@
 <script id="tmpl1" type="text/template">
     <span>#{it.name}</span>
     <br />
-    {{include:#tmpl2, it.goods}}
+    {{include:#tmpl2, it.weeks}}
 	<br />
 
     {{if:it.isMale=='Male'}}aspx{{/if}}
@@ -99,7 +101,7 @@
 
 <script id="tmpl2" type="text/template">
 {{for:it}}
-    <span>#{$val}@ idx#{$idx}
+    <span>#{$idx+1}.#{$val}
     </span>
 {{/for}}
 </script>
