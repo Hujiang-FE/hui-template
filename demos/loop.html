@@ -7,16 +7,12 @@
     <script src="../src/hui.template.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(function () {
-           var obj = { 
-                "name": "<button onclick='alert(0)'>Daniel</button>", 
-                "age": 31, 
-                "isMale": true, 
-                "isOld": true, 
-                'goods': ['apple', 'pear', 'peach', 'orange'], 
-                week: ['Monday', 'tuesday', 'wedsday', 'turseday',' firday'] 
+           var obj = {
+                "country": ["China", "America", "Canada", "Japan"],
+                "capital": ["北京", "华盛顿", "渥太华", "日本"]
             }
 
-            var engine = HUI.template('#tmpl1');
+            var engine = HUI.template('#test');
             var str = engine.render(obj);
 
             $("#content").html(str);
@@ -25,29 +21,12 @@
 </head>
 <body>
 <div id="content"></div>
-<script id="tmpl1" type="text/template">
-    /* evaluate */
-    {{eval: var str = 'aaaaa',str_1 = 'bbbb'; }}
-    {{eval: if(true) {
-        console.log(true);
-    }
-    else {
-        console.log(false);
-    }}}
-    <div>#{str}----#{str_1}</div>
-    <ul class="">
-    /*loop*/
-   {{for:it.goods}}
-        <li>#{$val}@ idx#{$idx}
-            <ul>
-            {{for:val,idx in it.week}} 
-                <li>#{val}@ idx#{idx}
-                </li>
-            {{/for}}
-            </ul>
-        </li>
+<script id="test">
+    <ul>
+    {{for:it.country}}
+        <li>#{$val} #{it.capital[$idx]}</li>
     {{/for}}
+    </ul>
 </script>
-
 </body>
 </html>
