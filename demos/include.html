@@ -2,18 +2,15 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title></title>
+    <title>嵌套</title>
+    <link rel="stylesheet" href="../src/hui.hui.template.css" />
     <script src="../vendor/jquery-1.8.2.min.js" type="text/javascript"></script>
     <script src="../src/hui.template.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(function () {
             var obj = { 
-                "name": "<button onclick='alert(0)'>Daniel</button>", 
-                "age": 31, 
-                "isMale": true, 
-                "isOld": true, 
-                'goods': ['apple', 'pear', 'peach', 'orange'], 
-                week: ['Monday', 'tuesday', 'wedsday', 'turseday',' firday'] 
+                "name": "<button onclick='alert(0)'>Daniel</button>",
+                'goods': ['apple', 'pear', 'peach', 'orange']
             }
 
             var engine = HUI.template('#tmpl1');
@@ -26,18 +23,18 @@
 <body>
 <div id="content"></div>
 <script id="tmpl1" type="text/template">
+    <h2 class="tit-1">template 1</h2>
     <span>#{!it.name}</span>
     <span>#{it.name}</span>
-    <h3>include child template 1</h3>
-    <br />
+    <br/>
+    <h2 class="tit-1">include child template 2</h2>
     {{include:#tmpl2, it.goods}}
-    <br />   
 </script>
 
 
 <script id="tmpl2" type="text/template">
 {{for:it}}
-    <span>#{$val}@ idx#{$idx}</span>
+    <div>来自template 2: #{$val}</div>
 {{/for}}
 </script>
 </body>

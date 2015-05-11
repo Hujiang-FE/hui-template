@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <title></title>
+    <title>条件</title>
     <script src="../vendor/jquery-1.8.2.min.js" type="text/javascript"></script>
     <script src="../src/hui.template.js" type="text/javascript"></script>
     <script type="text/javascript">
@@ -13,9 +13,8 @@
                 "age": 31, 
                 "isMale": true, 
                 "isOld": true, 
-                'goods': ['apple', 'pear', 'peach', 'orange'], 
-                week: ['Monday', 'tuesday', 'wedsday', 'turseday',' firday'] 
-            }
+                'goods': ['apple', 'pear', 'peach', 'orange']
+            };
 
             var engine = HUI.template('#tmpl1');
             var str = engine.render(obj);

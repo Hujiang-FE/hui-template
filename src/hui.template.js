@@ -46,7 +46,7 @@
     };
 
     tmplEngine.syntaxRules = {
-        evaluate: '$bt\\s*eval\\:([\\s\\S]+?(\\}?)+)$et',
+        evaluate: '$bt\\s*eval\\:([\\s\\S]+?(\\}?)+)$et', // 
         interpolate: '$bt(\s*[^!][\\s\\S]*?)$et',
         unescape: '$bt!([\\s\\S]+?)$et',
         conditional: '$bt\\s*\\/?(?:if|(elif|elseif|else))\\:?\\s*([\\s\\S]*?)\\s*$et',
