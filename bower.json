@@ -18,7 +18,11 @@
     "**/.*",
     "node_modules",
     "bower_components",
+    "demos",
+    "vendor",
+    "gulpfile.js",
     "test",
-    "tests"
+    "tests",
+    "*.md"
   ]
 }
